@@ -1,80 +1,50 @@
-import React from "react";
 //import Map from "./Map"
 import { Link} from "react-router-dom";
-import { validationLatitudeLongitude } from "validation-latitude-longitude";
+import React, {useState, useEffect} from "react";
 
+
+const apiKeys = process.env.REACT_NEW_API_KEY;
 
 export default function LabelA(){
 
-   function isValidCoord(){
-        if (document.getElementById("lat").value === "" || document.getElementById("lon").value === "" ){
-            alert("Latitude or Longitude Must Be Filled Out");
-            return false;
+    const[apodData,setApodData] = useState([]);
 
-        }
-        
-        if (validationLatitudeLongitude.latitude(document.getElementById("lat").value) === false ){
-            alert("Latitude needs to be between -90 and 90");
-            return false; 
-                
-        }
+    useEffect(()=>{
+        const fetchApod = async() =>{
+            const res = await fetch(
 
-        if(validationLatitudeLongitude.longitude(document.getElementById("lon").value) === false ){
-            alert("Longitutde needs to be between -180 and 180");
-            return false;
-                
-        }
-        else{
-            console.log("it works");
-            //return true;
-                        
-        }
-    }
+               // `https://api.nasa.gov/planetary/apod?api_key=${apiKey}$`
+                //`https://api.nasa.gov/planetary/apod?api_key=${apiKeys}`
+                `https://api.nasa.gov/planetary/apod?api_key=01zHnhWJQ9puBlbpwb0AV7CD4ps03wjFVugMVo2m`
 
-    
+
+            );
+
+            const data = await res.json();
+            setApodData(data);
+        }
+        fetchApod();
+        console.log(apodData);
+    })
+
 
     return(
-        <form name="latLon">
-            <label className="lat">
-            Enter Latitude:
-            <input type="text" id="lat" name="latName" />
-            </label>
+        <div className="apod">
+            <h1>{apodData.title}</h1>
+           <br>
 
-            <br>
-            </br>
+           </br>
 
-            <label className="lon">
-            Enter Longitutde:
-            <input type="text" id="lon" name="lonName" />
-            </label>
+           <img src={apodData.url} alt="hello"/>
+           <Link className="photo-link" to="/photo"> See a Landsat Image! </Link>
 
-            <br>
-            </br>
+           <br>
+           </br>
 
-            
-            <Link to="/photo">
-            <input type="submit" value="Submit" 
-            
-            
-            onClick={
-                isValidCoord
-            }>
-            
-                    
-            </input></Link>
+           <p>{apodData.explanation}</p>
 
-            
-            
-            
 
-            
-            
+        </div>
+    )
 
-        </form>
-    );
 }
-
-//export default Label;
-//import("react").LabelHTMLAttributes;
-
-//<input type="submit" value="Submit" onClick={isValidCoord}  />
