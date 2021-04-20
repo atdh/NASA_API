@@ -2,6 +2,14 @@ import { render } from "@testing-library/react";
 import React, {useState, useEffect} from "react";
 //import Label from "./Label";
 //import {Link} from "react-router-dom";
+import {
+    Form,
+    FormGroup,
+    Label,
+    Input,
+    Button
+} from 'reactstrap';
+
 
 const apiKey = process.env.REACT_APP_NASA_KEY;
 
@@ -25,17 +33,38 @@ export default function PhotoA(){
         
     },[]);
 
-
     return(
         
-        <div className="photo">
-        <img src={photoData.url} alt="helloworld"/>
+        <Form>
+            <FormGroup>
+                <Label>Latitude</Label>
+                <Input type="text" placeholder="Enter Latitude">
+                </Input>
+            </FormGroup>
+            
+            <FormGroup>
+                <Label>Longitude</Label>
+                <Input type="text" placeholder="Enter Longitude">
+                </Input>
+            </FormGroup>
+            <br>
 
+            </br>
+            <Button type="submit">Submit</Button>
+
+
+
+            <div className="photo">
+
+                <img src={photoData.url} alt="helloworld"/>
         
 
-        <h1>{photoData.id}</h1>
+                <h1>{photoData.id}</h1>
+            
+            </div>
         
-        </div>
+        </Form>
+
         
     )
 }
