@@ -11,7 +11,7 @@ export default function PhotoA(){
     useEffect(()=>{
         const fetchPhoto = async() => {
             const res = await fetch(
-                // 'https://api.nasa.gov/planetary/earth/assets?lon=-104.959820&lat=39.879860&date=2021-01-01&dim=0.15&api_key=hcb3cOK5E18Ao7FHIUIrJTtl7ytM8khTmYR3oHPM'
+                
                 `https://api.nasa.gov/planetary/earth/assets?lon=-95.33&lat=29.78&date=2018-01-01&&dim=0.10&api_key=${apiKey}`
                 
             );
